@@ -43,31 +43,5 @@ def test_upload_file(sftp_container):
     sftp.close()
     transport.close()
     os.remove(input_path)
+    os.remove(downloaded_path)
 
-def test_upload_and_verify_on_sftp():
-    transport = paramiko.Transport(("localhost", 2222))
-    transport.connect(username=SFTP_USER, password=SFTP_PASS)
-    sftp = paramiko.SFTPClient.from_transport(transport)
-
-    remote_dir = f"/upload"
-    remote_path = f"{remote_dir}/test_file.txt"
-
-    # Create the remote directory if it doesn't exist
-    try:
-        sftp.stat(remote_dir)
-    except FileNotFoundError:
-        sftp.mkdir(remote_dir)
-
-    # Upload the file
-    sftp.put(r"C:\Users\Admin\Documents\Projects\sftp_transfer\tests\poc\test_file.txt", remote_path)
-
-    # Confirm the file was uploaded
-    files = sftp.listdir(remote_dir)
-    assert "test_file.txt" in files
-
-    # Optional: verify content
-    with sftp.open(remote_path, "r") as f:
-        assert f.read().decode() == "Hello from pytest!"
-
-    sftp.close()
-    transport.close()
