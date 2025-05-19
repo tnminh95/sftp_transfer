@@ -10,4 +10,4 @@ def test_upload_file_to_sftp_server(sftp_container):
     transfer_log = TransferLog(FileDataStore(file_path="resources/data/transfer_logs.json"))
     sftp_transfer = SftpFileTransfer(host="localhost",port=SFTP_PORT,user=SFTP_USER,password=SFTP_PASS)
     sftp_agent = FileTransferAgent(sftp_transfer,file_registry,transfer_log)
-    sftp_agent.run_upload_file(f"upload/",f"upload/","2025-05-11")
+    sftp_agent.run_upload_file(f"upload/data/",f"upload/control/","2025-05-11")

@@ -50,6 +50,6 @@ class FileTransferAgent:
             dest_file = os.path.join(destination_file_path,file.path.split("/")[-1])
             self.file_transfer.push(file.path,dest_file)
 
-        dest_file = os.path.join(destination_file_path, control_file_path.split("/")[-1])
+        dest_file = os.path.join(destination_control_file_path, control_file_path.split("/")[-1])
         self.file_transfer.push(control_file_path,dest_file)
 

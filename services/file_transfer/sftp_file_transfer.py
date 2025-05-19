@@ -1,5 +1,6 @@
 from services.file_transfer import FileTransfer
 import paramiko
+from pathlib import PurePosixPath
 
 class SftpFileTransfer(FileTransfer):
     sftp = None
@@ -14,7 +15,15 @@ class SftpFileTransfer(FileTransfer):
     def initialize(self):
         pass
 
+    def mkdir_if_not_exists(self, remote_dir):
+        try:
+            self.sftp.chdir(remote_dir)  # Try to change into the directory
+        except IOError:
+            self.sftp.mkdir(remote_dir)  # If it fails, the directory doesn't exist — create it
+            print(f"Created remote directory: {remote_dir}")
     def push(self,source, destination):
+        parent_path = str(PurePosixPath(destination).parent)
+        self.mkdir_if_not_exists(parent_path)
         self.upload_file_in_chunks(source,destination,self.chunk_size)
 
     def upload_file_in_chunks(self, local_path, remote_path, chunk_size=8 * 1024 * 1024):
