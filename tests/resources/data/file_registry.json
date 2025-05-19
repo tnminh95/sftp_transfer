@@ -1,0 +1,13 @@
+[{
+  "id" : 1,
+  "path": "resources/data/test1.data",
+  "updated_date" : "2025-05-10",
+  "checksum" : "1"
+},
+  {
+  "id" : 2,
+  "path": "resources/data/test2.data",
+  "updated_date" : "2025-05-11",
+  "checksum" : "2"
+}
+]
