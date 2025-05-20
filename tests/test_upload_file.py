@@ -3,7 +3,11 @@ from services.file_transfer.sftp_file_transfer import SftpFileTransfer
 from services.metastore.datastore.file_datastore import FileDataStore
 from services.metastore.file_registry import FileRegistry
 from services.metastore.transfer_logs import TransferLog
-from conftest import SFTP_USER, SFTP_PASS, SFTP_PORT
+
+SFTP_USER = "foo"
+SFTP_PASS = "pass"
+SFTP_PORT = 2222
+
 
 def test_upload_file_to_sftp_server(sftp_container):
     file_registry = FileRegistry(FileDataStore(file_path="resources/data/file_registry.json"))

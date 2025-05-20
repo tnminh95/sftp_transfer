@@ -2,8 +2,8 @@ import os
 
 import paramiko
 
-from conftest import SFTP_USER, SFTP_PASS, SFTP_PORT
-import hashlib
+
+
 
 from poc.sftp import upload_file_in_chunks
 from utils.checksum import calculate_sha256
@@ -13,6 +13,10 @@ def generate_large_file(path, size_mb=20):
     with open(path, "wb") as f:
         f.write(b"\0" * size_mb * 1024 * 1024)
 
+
+SFTP_USER = "foo"
+SFTP_PASS = "pass"
+SFTP_PORT = 2222
 
 def test_upload_file(sftp_container):
     test_file = "test.data"

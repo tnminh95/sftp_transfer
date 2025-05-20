@@ -42,14 +42,24 @@ class FileTransferAgent:
             file.write(content)
         return control_file_path
 
+    # def make_logs(self,entries, status ="successful"):
+    #     for entry in entries:
+
+
 
     def run_upload_file(self,destination_file_path, destination_control_file_path, input_date):
         entries = self.get_list_file_upload(input_date)
-        control_file_path = self.make_control_file(entries)
-        for file in entries:
-            dest_file = os.path.join(destination_file_path,file.path.split("/")[-1])
-            self.file_transfer.push(file.path,dest_file)
+        control_entries = entries
 
-        dest_file = os.path.join(destination_control_file_path, control_file_path.split("/")[-1])
-        self.file_transfer.push(control_file_path,dest_file)
+        try:
+            for file in control_entries:
+                dest_file = os.path.join(destination_file_path,file.path.split("/")[-1])
+                self.file_transfer.push(file.path,dest_file)
+                file.path = dest_file
+            control_file_path = self.make_control_file(entries)
+            dest_file = os.path.join(destination_control_file_path, control_file_path.split("/")[-1])
+            self.file_transfer.push(control_file_path,dest_file)
+        except:
+            pass
+
 
